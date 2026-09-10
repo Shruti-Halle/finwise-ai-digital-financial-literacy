@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FinWise AI | Learn. Protect. Decide.</title>
+    <meta
+      name="description"
+      content="FinWise AI is an educational guide to digital payments, financial safety, budgeting, loans, and smarter financial decisions."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #173f3a;
+        --green: #1e5952;
+        --green-dark: #143f3a;
+        --paper: #f8f4e8;
+        --paper-deep: #f1ecdc;
+        --cream: #f5e9c3;
+        --coral: #df775d;
+        --coral-pale: #fae1d4;
+        --muted: #66746e;
+        --line: #d8d4c7;
+        --sans: "DM Sans", sans-serif;
+        --serif: "Fraunces", Georgia, serif;
+        --mono: "Space Mono", monospace;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+      a { color: inherit; text-decoration: none; }
+      button, input { font: inherit; }
+      button { cursor: pointer; }
+      .shell { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+      .eyebrow {
+        color: var(--green);
+        font: 700 0.68rem/1 var(--mono);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .display {
+        margin: 0;
+        font-family: var(--serif);
+        font-weight: 600;
+        letter-spacing: -0.05em;
+        line-height: 0.98;
+      }
+      .section { padding: 120px 0; }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(216, 212, 199, 0.85);
+        background: rgba(248, 244, 232, 0.92);
+        backdrop-filter: blur(16px);
+      }
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 74px;
+      }
+      .brand { display: inline-flex; align-items: center; gap: 11px; font: 700 1.18rem var(--serif); }
+      .brand-mark {
+        display: grid;
+        width: 36px;
+        height: 36px;
+        place-items: center;
+        border-radius: 11px;
+        color: var(--cream);
+        background: var(--green);
+      }
+      .brand-mark::before { content: "◇"; font: 700 1.6rem/1 var(--sans); }
+      .brand em { color: var(--coral); font: 700 0.95em var(--sans); font-style: normal; }
+      .nav-links { display: flex; align-items: center; gap: 28px; }
+      .nav-links a { color: #51625d; font-size: 0.79rem; font-weight: 700; }
+      .nav-links a:hover { color: var(--green); }
+      .nav-cta, .primary-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        border: 0;
+        border-radius: 999px;
+        color: #f8f1d9;
+        background: var(--green);
+        font-weight: 700;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+      .nav-cta { padding: 12px 17px; font-size: 0.75rem; }
+      .nav-cta:hover, .primary-btn:hover { transform: translateY(-2px); }
+      .menu-btn { display: none; border: 1px solid var(--line); border-radius: 50%; width: 40px; height: 40px; color: var(--green); background: transparent; }
+      .mobile-links { display: none; padding: 8px 20px 18px; border-top: 1px solid var(--line); }
+      .mobile-links a { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--line); color: var(--green); font-weight: 700; font-size: 0.9rem; }
+
+      .hero {
+        position: relative;
+        overflow: hidden;
+        min-height: 680px;
+        padding: 110px 0 70px;
+        background-color: var(--paper);
+        background-image: linear-gradient(rgba(30, 89, 82, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(30, 89, 82, 0.055) 1px, transparent 1px);
+        background-size: 28px 28px;
+      }
+      .hero::after { position: absolute; inset: 0; pointer-events: none; content: ""; background: radial-gradient(circle at 86% 28%, rgba(232, 200, 120, 0.34), transparent 24%); }
+      .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1.04fr 0.96fr; align-items: center; gap: 50px; }
+      .hero h1 { max-width: 680px; margin-top: 28px; color: var(--green); font-size: clamp(3.8rem, 8vw, 7.1rem); }
+      .hero h1 span { color: var(--coral); }
+      .hero-copy { max-width: 510px; margin-top: 28px; color: var(--muted); font-size: 1.03rem; line-height: 1.9; }
+      .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
+      .primary-btn { padding: 15px 21px; box-shadow: 0 8px 0 #143f3a; }
+      .text-btn { display: inline-flex; align-items: center; gap: 10px; border: 0; color: var(--green); background: transparent; font-weight: 700; }
+      .text-btn b { display: grid; width: 32px; height: 32px; place-items: center; border: 1px solid #b8c8bd; border-radius: 50%; font-size: 1.1rem; }
+      .audience { display: flex; align-items: center; gap: 12px; margin-top: 55px; color: #78857d; font-size: 0.75rem; }
+      .avatars { display: flex; }
+      .avatar { display: grid; width: 28px; height: 28px; margin-left: -5px; place-items: center; border: 2px solid var(--paper); border-radius: 50%; font: 700 0.62rem var(--sans); }
+      .avatar:first-child { margin-left: 0; background: var(--coral); }
+      .avatar:nth-child(2) { background: #d6bb72; }
+      .avatar:nth-child(3) { background: #8ea9a1; }
+      .hero-art { position: relative; min-height: 540px; }
+      .lesson-card { position: absolute; right: 0; top: 15px; width: 82%; min-height: 440px; padding: 28px 24px; border: 1px solid #d7cba5; border-radius: 32px; background: #f2dfac; box-shadow: 0 22px 0 #ddc991, 0 35px 55px rgba(32, 70, 64, 0.13); transform: rotate(5deg); }
+      .card-meta { display: flex; justify-content: space-between; color: #69776d; font: 700 0.6rem var(--mono); letter-spacing: 0.1em; text-transform: uppercase; }
+      .lesson-card h2 { margin: 55px 0 0; padding: 25px 0; border-block: 1px solid #bda96f; color: var(--green); font: 600 2.15rem/1.05 var(--serif); }
+      .checks { display: grid; gap: 13px; margin-top: 23px; color: #56675d; font-size: 0.77rem; }
+      .checks span::first-letter { color: var(--coral); }
+      .card-arrow { position: absolute; right: 22px; bottom: 22px; display: grid; width: 50px; height: 50px; place-items: center; border-radius: 50%; color: var(--cream); background: var(--green); font-size: 1.4rem; }
+      .safe-card { position: absolute; left: 0; bottom: 6px; width: 62%; padding: 22px; border: 1px solid #cadad2; border-radius: 17px; color: var(--green); background: #edf3e7; box-shadow: 0 18px 30px rgba(32, 70, 64, 0.14); transform: rotate(-7deg); }
+      .safe-card strong { display: block; font: 700 0.62rem var(--mono); letter-spacing: 0.12em; }
+      .safe-card h3 { margin: 16px 0 0; font: 600 1.45rem/1.1 var(--serif); }
+      .safe-card i { display: block; width: 55px; height: 4px; margin-top: 20px; background: var(--coral); }
+      .stamp { position: absolute; right: -5px; bottom: 37px; display: grid; width: 64px; height: 64px; place-items: center; border: 1px solid var(--coral); border-radius: 50%; color: var(--coral); background: var(--paper); font: 700 0.55rem/1.15 var(--mono); text-align: center; }
+      .hero-note { margin-top: 34px; color: #8b948c; font: 700 0.64rem var(--mono); letter-spacing: 0.17em; text-transform: uppercase; }
+
+      .learn { background: var(--paper); }
+      .section-grid { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: 50px; }
+      .section h2 { max-width: 500px; margin-top: 20px; color: var(--green); font-size: clamp(2.8rem, 5vw, 4.5rem); }
+      .section-intro { max-width: 340px; margin-top: 24px; color: var(--muted); font-size: 0.95rem; line-height: 1.8; }
+      .topic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; }
+      .topic {
+        min-height: 190px;
+        padding: 21px;
+        border: 1px solid var(--line);
+        border-radius: 17px;
+        text-align: left;
+        transition: transform 0.25s, box-shadow 0.25s;
+      }
+      .topic:hover { transform: translateY(-5px); box-shadow: 0 14px 28px rgba(30, 67, 63, 0.1); }
+      .topic:nth-child(1) { background: #e7f0e9; }
+      .topic:nth-child(2) { background: #fae1d4; }
+      .topic:nth-child(3) { background: #f1e5bf; }
+      .topic:nth-child(4) { background: #d9e9e7; }
+      .topic:nth-child(5) { background: #e7e1ed; }
+      .topic:nth-child(6) { background: #e7e8d5; }
+      .topic-icon { display: grid; width: 40px; height: 40px; place-items: center; border-radius: 11px; color: var(--green); background: rgba(248, 244, 232, 0.72); font-size: 1.15rem; }
+      .topic h3 { max-width: 220px; margin: 23px 0 7px; color: var(--green); font: 600 1.3rem/1.05 var(--serif); }
+      .topic p { margin: 0; color: #65736c; font-size: 0.75rem; line-height: 1.55; }
+
+      .confidence { color: #f8f1d9; background: var(--green); }
+      .confidence h2 { color: #f8f1d9; }
+      .confidence .section-intro { color: #bfd0c4; }
+      .confidence-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: 65px; }
+      .confidence-items { display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; }
+      .confidence-item { padding: 22px; border: 1px solid #477b70; border-radius: 16px; background: #245f57; }
+      .confidence-item b { color: #e7c96f; font: 0.65rem var(--mono); }
+      .confidence-item h3 { margin: 34px 0 7px; font: 600 1.35rem var(--serif); }
+      .confidence-item p { margin: 0; color: #bfd0c4; font-size: 0.76rem; line-height: 1.6; }
+
+      .safety { background: var(--coral-pale); }
+      .safety h2 { color: #713e35; }
+      .safety .eyebrow { color: #a14c3d; }
+      .safety .section-intro { color: #875e53; }
+      .safety-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 60px; align-items: center; }
+      .rules { position: relative; overflow: hidden; border: 1px solid #d39a83; border-radius: 17px; background: #f7d5c4; }
+      .rule { display: flex; gap: 16px; padding: 20px 24px; border-bottom: 1px solid #e2b19d; }
+      .rule:last-child { border-bottom: 0; }
+      .rule-icon { display: grid; flex: 0 0 44px; height: 44px; place-items: center; border-radius: 12px; color: #a14c3d; background: #f8f0d9; }
+      .rule h3 { margin: 0; color: #713e35; font: 600 1.3rem var(--serif); }
+      .rule p { margin: 3px 0 0; color: #875e53; font-size: 0.78rem; line-height: 1.55; }
+      .warning { display: inline-flex; gap: 8px; margin-top: 25px; padding: 10px 15px; border: 1px solid #d69e88; border-radius: 999px; color: #8b4a3d; background: #f8d7c6; font-size: 0.78rem; font-weight: 700; }
+
+      .process { background: var(--paper-deep); }
+      .process-grid { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 55px; }
+      .process-line { position: absolute; top: 28px; left: 8%; right: 8%; height: 1px; background: #b9c9bb; }
+      .step { position: relative; z-index: 1; }
+      .step-number { display: grid; width: 58px; height: 58px; place-items: center; border: 7px solid var(--paper-deep); border-radius: 50%; color: var(--cream); background: var(--green); box-shadow: 0 0 0 1px #78948a; font-size: 0.9rem; }
+      .step h3 { margin: 21px 0 7px; color: var(--green); font: 600 1.5rem var(--serif); }
+      .step p { max-width: 210px; margin: 0; color: var(--muted); font-size: 0.8rem; line-height: 1.6; }
+
+      .assistant { color: #f8f1d9; background: #193f3b; }
+      .assistant h2 { color: #f8f1d9; }
+      .assistant .section-intro { color: #b8ccc1; }
+      .assistant-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 55px; align-items: start; }
+      .prompt-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+      .prompt {
+        padding: 9px 12px;
+        border: 1px solid #4d776c;
+        border-radius: 999px;
+        color: #d5e2d5;
+        background: transparent;
+        font-size: 0.72rem;
+        text-align: left;
+      }
+      .prompt:hover { background: #275a53; }
+      .chat-card { position: relative; padding: 24px; border: 1px solid #547b6f; border-radius: 18px; color: var(--green); background: #edf1df; box-shadow: 0 22px 60px rgba(0, 0, 0, 0.18); }
+      .chat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid #cad8c8; }
+      .chat-title { display: flex; align-items: center; gap: 11px; }
+      .bot-icon { display: grid; width: 37px; height: 37px; place-items: center; border-radius: 11px; color: var(--cream); background: var(--green); }
+      .chat-title strong { display: block; font-size: 0.9rem; }
+      .chat-title small { display: block; margin-top: 2px; color: #789088; font: 0.55rem var(--mono); letter-spacing: 0.08em; text-transform: uppercase; }
+      .ready { display: flex; align-items: center; gap: 6px; color: #4c8c74; font-size: 0.66rem; font-weight: 700; white-space: nowrap; }
+      .ready::before { width: 6px; height: 6px; border-radius: 50%; background: #4c8c74; content: ""; }
+      .messages { display: flex; flex-direction: column; gap: 11px; min-height: 215px; max-height: 280px; padding: 19px 0; overflow-y: auto; }
+      .message { max-width: 88%; margin: 0; padding: 11px 14px; border-radius: 16px 16px 16px 4px; color: #3b5f56; background: #dce8d8; font-size: 0.82rem; line-height: 1.55; }
+      .message.user { align-self: flex-end; border-radius: 16px 16px 4px 16px; color: #6c5a32; background: #f5dfaa; }
+      .chat-form { display: flex; gap: 8px; padding: 8px; border: 1px solid #c3d0c1; border-radius: 11px; background: #f8f6e9; }
+      .chat-form input { min-width: 0; flex: 1; border: 0; outline: 0; color: var(--green); background: transparent; padding: 6px; font-size: 0.85rem; }
+      .chat-form button { display: grid; width: 36px; height: 36px; place-items: center; border: 0; border-radius: 9px; color: var(--cream); background: var(--green); font-size: 1.1rem; }
+      .chat-note { display: flex; justify-content: space-between; gap: 12px; margin: 10px 0 0; color: #89968d; font-size: 0.62rem; }
+      .ibm-status { margin: 10px 0 0; color: #89968d; font-size: 0.62rem; text-align: right; }
+
+      .faq { background: var(--paper); }
+      .faq-grid { display: grid; grid-template-columns: 0.68fr 1.32fr; gap: 55px; }
+      .faq-list { border-block: 1px solid var(--line); }
+      .faq-item { border-bottom: 1px solid var(--line); }
+      .faq-item:last-child { border-bottom: 0; }
+      .faq-question { display: flex; justify-content: space-between; width: 100%; gap: 15px; padding: 19px 0; border: 0; color: #31554f; background: transparent; font: 600 1.13rem var(--serif); text-align: left; }
+      .faq-question span:last-child { transition: transform 0.2s; }
+      .faq-question[aria-expanded="true"] span:last-child { transform: rotate(180deg); }
+      .faq-answer { max-width: 640px; margin: 0; padding: 0 45px 20px 0; color: var(--muted); font-size: 0.85rem; line-height: 1.7; }
+      .footer { color: #d9e5d8; background: var(--green-dark); }
+      .footer-grid { display: grid; grid-template-columns: 1.1fr 0.9fr 0.9fr; gap: 50px; padding: 60px 0; }
+      .footer .brand { color: #f8f0d8; }
+      .footer-copy { max-width: 290px; margin-top: 17px; color: #9fb9aa; font-size: 0.86rem; line-height: 1.7; }
+      .footer h3 { color: #e7c96f; font: 700 0.68rem var(--mono); letter-spacing: 0.14em; text-transform: uppercase; }
+      .footer-links { display: grid; gap: 10px; margin-top: 16px; color: #c2d3c4; font-size: 0.85rem; }
+      .footer-bottom { padding: 18px 0; border-top: 1px solid #315f57; color: #7fa194; font-size: 0.68rem; }
+
+      @media (max-width: 850px) {
+        .nav-links, .nav-cta { display: none; }
+        .menu-btn { display: block; }
+        .mobile-links.open { display: block; }
+        .hero-grid, .section-grid, .confidence-grid, .safety-grid, .assistant-grid, .faq-grid { grid-template-columns: 1fr; }
+        .hero { padding-top: 75px; }
+        .hero-art { min-height: 480px; margin-top: 10px; }
+        .confidence-items { margin-top: 10px; }
+        .process-grid { grid-template-columns: repeat(2, 1fr); gap: 38px 20px; }
+        .process-line { display: none; }
+        .footer-grid { grid-template-columns: 1fr 1fr; }
+      }
+      @media (max-width: 560px) {
+        .shell { width: min(100% - 32px, 1160px); }
+        .section { padding: 78px 0; }
+        .hero { min-height: 0; padding: 78px 0 45px; }
+        .hero h1 { font-size: clamp(3.25rem, 16vw, 5.2rem); }
+        .hero-copy { font-size: 0.95rem; line-height: 1.75; }
+        .hero-art { min-height: 390px; }
+        .lesson-card { min-height: 320px; padding: 18px; }
+        .lesson-card h2 { margin-top: 35px; padding: 18px 0; font-size: 1.6rem; }
+        .safe-card { padding: 16px; }
+        .safe-card h3 { font-size: 1.1rem; }
+        .topic-grid, .confidence-items, .process-grid, .footer-grid { grid-template-columns: 1fr; }
+        .confidence-items { margin-top: 12px; }
+        .step p { max-width: 300px; }
+        .chat-note { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The website uses #app. The IBM widget uses the required #root element. -->
+    <div id="app">
+      <header class="topbar">
+        <div class="shell nav">
+          <a href="#home" class="brand" aria-label="FinWise AI home">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>FinWise <em>AI</em></span>
+          </a>
+          <nav class="nav-links" aria-label="Primary navigation">
+            <a href="#home">Home</a>
+            <a href="#learn">Learn</a>
+            <a href="#safety">Safety</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#assistant">AI Assistant</a>
+          </nav>
+          <a class="nav-cta" href="#assistant">Ask FinWise AI <span>→</span></a>
+          <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false">☰</button>
+        </div>
+        <nav class="mobile-links" id="mobileLinks" aria-label="Mobile navigation">
+          <a href="#home">Home <span>↗</span></a>
+          <a href="#learn">Learn <span>↗</span></a>
+          <a href="#safety">Safety <span>↗</span></a>
+          <a href="#how-it-works">How It Works <span>↗</span></a>
+          <a href="#assistant">AI Assistant <span>↗</span></a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero" id="home">
+          <div class="shell hero-grid">
+            <div>
+              <span class="eyebrow">A calmer way to learn money</span>
+              <h1 class="display">Understand Money.<br /><span>Protect</span> Your Future.</h1>
+              <p class="hero-copy">Your AI-powered guide to digital payments, financial safety, budgeting, loans and smarter financial decisions.</p>
+              <div class="hero-actions">
+                <a class="primary-btn" href="#learn">Explore the guide <span>→</span></a>
+                <a class="text-btn" href="#assistant"><b>◌</b> Ask a question</a>
+              </div>
+              <div class="audience">
+                <span class="avatars"><span class="avatar">S</span><span class="avatar">M</span><span class="avatar">R</span></span>
+                For curious beginners, families &amp; everyday decision-makers
+              </div>
+            </div>
+            <div class="hero-art" aria-label="FinWise AI learning preview">
+              <div class="lesson-card">
+                <div class="card-meta"><span>Your money, decoded</span><span>01 / 06</span></div>
+                <h2>Would you know<br />what to do next?</h2>
+                <div class="checks">
+                  <span>✓ &nbsp;A request feels urgent</span>
+                  <span>✓ &nbsp;Someone asks for a secret</span>
+                  <span>✓ &nbsp;The link looks almost right</span>
+                </div>
+                <span class="card-arrow">↘</span>
+              </div>
+              <div class="safe-card"><strong>◉ &nbsp; SAFE BY DEFAULT</strong><h3>Pause. Check.<br />Then decide.</h3><i></i></div>
+              <span class="stamp">NO<br />RUSH<br />RULE</span>
+            </div>
+          </div>
+          <div class="shell hero-note">— &nbsp; Learning should feel like a safe place to start</div>
+        </section>
+
+        <section class="section learn" id="learn">
+          <div class="shell section-grid">
+            <div>
+              <span class="eyebrow">01 — the learning shelf</span>
+              <h2 class="display">Build Your Financial Confidence</h2>
+              <p class="section-intro">Learn essential financial concepts in simple, practical language.</p>
+            </div>
+            <div class="topic-grid">
+              <button class="topic" data-prompt="How do I safely use UPI?"><span class="topic-icon">↗</span><h3>UPI &amp; Digital Payments</h3><p>Learn how UPI and digital payments work and how to use them safely.</p></button>
+              <button class="topic" data-prompt="How can I protect myself from scams?"><span class="topic-icon">◇</span><h3>Fraud &amp; Scam Protection</h3><p>Recognize common financial scams and learn how to protect sensitive information.</p></button>
+              <button class="topic" data-prompt="How should I start budgeting and saving?"><span class="topic-icon">▥</span><h3>Budgeting &amp; Saving</h3><p>Understand budgeting, saving and everyday money management.</p></button>
+              <button class="topic" data-prompt="What should I check before taking a personal loan?"><span class="topic-icon">₹</span><h3>Loans &amp; Interest Rates</h3><p>Learn about borrowing costs, repayment terms and factors that affect loan decisions.</p></button>
+              <button class="topic" data-prompt="How do I keep my digital banking safe?"><span class="topic-icon">□</span><h3>Digital Banking Safety</h3><p>Protect your OTPs, PINs, passwords and banking credentials.</p></button>
+              <button class="topic" data-prompt="Explain personal finance basics."><span class="topic-icon">+</span><h3>Personal Finance Basics</h3><p>Build a strong foundation in responsible financial decision-making.</p></button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section confidence">
+          <div class="shell confidence-grid">
+            <div>
+              <span class="eyebrow" style="color:#e7c96f">02 — confidence, not complexity</span>
+              <h2 class="display">Financial knowledge creates financial confidence.</h2>
+              <p class="section-intro">You do not need a finance degree to ask a good question. FinWise turns unfamiliar terms into useful next steps, so you can stay in control of your choices.</p>
+            </div>
+            <div class="confidence-items">
+              <article class="confidence-item"><b>01</b><h3>Learn with confidence</h3><p>Understand the words before you make the decision.</p></article>
+              <article class="confidence-item"><b>02</b><h3>Avoid common scams</h3><p>Recognize pressure tactics and suspicious requests.</p></article>
+              <article class="confidence-item"><b>03</b><h3>Understand products</h3><p>Learn what to check before choosing a financial product.</p></article>
+              <article class="confidence-item"><b>04</b><h3>Make informed decisions</h3><p>Take your learning to official sources before acting.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section safety" id="safety">
+          <div class="shell safety-grid">
+            <div>
+              <span class="eyebrow">03 — the safety shelf</span>
+              <h2 class="display">Stay One Step Ahead of Financial Scams</h2>
+              <p class="section-intro">Digital payments are convenient, but protecting your financial information is essential.</p>
+              <span class="warning">! &nbsp; If in doubt, stop and verify</span>
+            </div>
+            <div class="rules">
+              <article class="rule"><span class="rule-icon">◇</span><div><h3>Never share your UPI PIN</h3><p>Your UPI PIN authorizes money leaving your account. Enter it only on your own payment screen.</p></div></article>
+              <article class="rule"><span class="rule-icon">○</span><div><h3>Never share OTPs with callers</h3><p>One-time passwords are yours alone. No legitimate person needs you to read one aloud.</p></div></article>
+              <article class="rule"><span class="rule-icon">□</span><div><h3>Never share banking passwords</h3><p>Use a different, hard-to-guess password for important accounts. Keep it private.</p></div></article>
+              <article class="rule"><span class="rule-icon">!</span><div><h3>Verify suspicious payment requests</h3><p>Check the recipient, amount, and reason before approving a request.</p></div></article>
+              <article class="rule"><span class="rule-icon">✓</span><div><h3>Contact your bank through official channels</h3><p>Use your bank’s official app, website, or phone number when you need help.</p></div></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section process" id="how-it-works">
+          <div class="shell">
+            <span class="eyebrow">04 — a four-step habit</span>
+            <h2 class="display">Curiosity in.<br /><span style="color:var(--coral)">Clarity</span> out.</h2>
+            <div class="process-grid">
+              <span class="process-line"></span>
+              <article class="step"><span class="step-number">01</span><h3>Ask</h3><p>Ask a question in simple language.</p></article>
+              <article class="step"><span class="step-number">02</span><h3>Understand</h3><p>FinWise AI understands the financial topic.</p></article>
+              <article class="step"><span class="step-number">03</span><h3>Retrieve Knowledge</h3><p>Use connected financial knowledge sources to find relevant information.</p></article>
+              <article class="step"><span class="step-number">04</span><h3>Explain</h3><p>Get a clear, beginner-friendly explanation.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section assistant" id="assistant">
+          <div class="shell assistant-grid">
+            <div>
+              <span class="eyebrow" style="color:#e7c96f">05 — meet your study partner</span>
+              <h2 class="display">Meet Your Financial AI Assistant</h2>
+              <p class="section-intro">Ask questions about UPI, scams, budgeting, loans, interest rates and digital banking safety.</p>
+              <div class="prompt-list">
+                <button class="prompt" data-prompt="How do I safely use UPI?">How do I safely use UPI?</button>
+                <button class="prompt" data-prompt="Someone is asking for my OTP. What should I do?">Someone is asking for my OTP.</button>
+                <button class="prompt" data-prompt="What should I check before taking a personal loan?">What should I check before a loan?</button>
+                <button class="prompt" data-prompt="Explain interest rates in simple terms.">Explain interest rates.</button>
+              </div>
+            </div>
+            <div class="chat-card">
+              <div class="chat-head">
+                <div class="chat-title"><span class="bot-icon">✦</span><div><strong>FinWise AI</strong><small>built-in learning guide</small></div></div>
+                <span class="ready">Always available</span>
+              </div>
+              <div class="messages" id="messages" aria-live="polite">
+                <p class="message">Hi. I’m your built-in FinWise guide. Ask me about a payment, scam, loan, or money word.</p>
+              </div>
+              <form class="chat-form" id="chatForm">
+                <input id="chatInput" aria-label="Ask the built-in FinWise AI a question" placeholder="Ask a money question..." autocomplete="off" />
+                <button type="submit" aria-label="Get an answer">→</button>
+              </form>
+              <div class="chat-note"><span>Never share passwords, OTPs, UPI PINs, or account numbers.</span><span>Built for learning, not selling.</span></div>
+              <p class="ibm-status" id="ibmStatus">IBM assistant: connecting...</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section faq">
+          <div class="shell faq-grid">
+            <div>
+              <span class="eyebrow">06 — before you go</span>
+              <h2 class="display">Good questions are a form of safety.</h2>
+              <p class="section-intro">A few answers for the questions people often keep to themselves.</p>
+            </div>
+            <div class="faq-list">
+              <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>What is FinWise AI?</span><span>⌄</span></button><p class="faq-answer" hidden>FinWise AI is an educational assistant that explains everyday digital finance topics in simple language, including payments, scams, budgeting, loans, and banking safety.</p></article>
+              <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>What can FinWise AI help me learn?</span><span>⌄</span></button><p class="faq-answer" hidden>It can help you understand UPI and digital payments, fraud prevention, budgeting, saving, loans, interest rates, digital banking safety, and personal finance basics.</p></article>
+              <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>Should I share my UPI PIN?</span><span>⌄</span></button><p class="faq-answer" hidden>No. Never share your UPI PIN with anyone. Enter it only on your own payment screen.</p></article>
+              <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>What should I do if someone asks for my OTP?</span><span>⌄</span></button><p class="faq-answer" hidden>Do not share it. End the conversation and verify the request through your bank’s official app, website, or support channel.</p></article>
+              <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>What should I check before taking a loan?</span><span>⌄</span></button><p class="faq-answer" hidden>Compare the interest rate, total repayment amount, fees, repayment schedule, and terms before agreeing.</p></article>
+              <article class="faq-item"><button class="faq-question" aria-expanded="false"><span>Does FinWise AI provide personalized investment advice?</span><span>⌄</span></button><p class="faq-answer" hidden>No. FinWise AI provides general educational information only and does not promise financial outcomes or recommend personalized investments.</p></article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="shell footer-grid">
+          <div><a href="#home" class="brand"><span class="brand-mark"></span><span>FinWise <em>AI</em></span></a><p class="footer-copy">AI-Powered Digital Financial Literacy</p></div>
+          <div><h3>Explore</h3><div class="footer-links"><a href="#learn">Learning shelves</a><a href="#safety">Safety rules</a><a href="#assistant">Ask FinWise AI</a></div></div>
+          <div><h3>Keep in mind</h3><p class="footer-copy">Educational information only. Verify important financial information through official sources.</p></div>
+        </div>
+        <div class="footer-bottom"><div class="shell">Learn. Protect. Make informed financial decisions.</div></div>
+      </footer>
+    </div>
+
+    <!-- Required IBM watsonx Orchestrate mount. The built-in guide above works without it. -->
+    <div id="root"></div>
+    <script>
+      const getReply = (prompt) => {
+        const text = prompt.toLowerCase();
+        if (text.includes("otp") || text.includes("one-time")) return "Never share an OTP with anyone, even if they say they work for your bank. Stop the conversation and contact your bank through its official app, website, or phone number.";
+        if (text.includes("upi")) return "Use UPI only through your trusted banking or payment app. Check the recipient and amount before approving. Your UPI PIN is only for authorizing payments, so never share it.";
+        if (text.includes("scam") || text.includes("fraud") || text.includes("fake") || text.includes("suspicious")) return "Pause before you act. Do not click unknown links, share secrets, or approve a payment under pressure. Verify the request through an official channel you find yourself.";
+        if (text.includes("loan") || text.includes("borrow")) return "Before taking a loan, compare the interest rate, total repayment amount, fees, repayment schedule, and late-payment terms. Only agree when you understand the full commitment.";
+        if (text.includes("interest")) return "Interest is the cost of borrowing money, or the amount earned when money is saved. Ask whether a rate is fixed or variable and how often it is applied.";
+        if (text.includes("budget") || text.includes("saving") || text.includes("save")) return "Start by listing your regular income and essential expenses. Set a realistic amount for saving, review your plan regularly, and leave room for unexpected costs.";
+        if (text.includes("password") || text.includes("pin") || text.includes("security")) return "Keep passwords, PINs, OTPs, and security codes private. Use strong, different passwords for important accounts and contact your bank only through official channels.";
+        return "I can help with UPI, scams, OTPs, budgeting, saving, loans, interest rates, passwords, and digital banking safety. Try asking one of those questions.";
+      };
+
+      const messages = document.getElementById("messages");
+      const input = document.getElementById("chatInput");
+      const addMessage = (text, role) => {
+        const message = document.createElement("p");
+        message.className = `message${role === "user" ? " user" : ""}`;
+        message.textContent = text;
+        messages.appendChild(message);
+        messages.scrollTop = messages.scrollHeight;
+      };
+      const ask = (prompt) => {
+        const clean = prompt.trim();
+        if (!clean) return;
+        addMessage(clean, "user");
+        addMessage(getReply(clean), "assistant");
+        input.value = "";
+      };
+      document.getElementById("chatForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+        ask(input.value);
+      });
+      document.querySelectorAll("[data-prompt]").forEach((button) => {
+        button.addEventListener("click", () => {
+          document.getElementById("assistant").scrollIntoView({ behavior: "smooth" });
+          ask(button.dataset.prompt);
+        });
+      });
+
+      const menuBtn = document.getElementById("menuBtn");
+      const mobileLinks = document.getElementById("mobileLinks");
+      menuBtn.addEventListener("click", () => {
+        const open = mobileLinks.classList.toggle("open");
+        menuBtn.setAttribute("aria-expanded", String(open));
+        menuBtn.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+      });
+      mobileLinks.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => mobileLinks.classList.remove("open")));
+
+      document.querySelectorAll(".faq-question").forEach((button) => {
+        button.addEventListener("click", () => {
+          const expanded = button.getAttribute("aria-expanded") === "true";
+          button.setAttribute("aria-expanded", String(!expanded));
+          button.nextElementSibling.hidden = expanded;
+        });
+      });
+
+      window.wxOConfiguration = {
+        orchestrationID: "dce1d0c38c3a43969cfda31d2263b4d1_73f6c07a-a569-472f-b413-1c0be4ffd5b8",
+        hostURL: "https://au-syd.watson-orchestrate.cloud.ibm.com",
+        rootElementID: "root",
+        deploymentPlatform: "ibmcloud",
+        crn: "crn:v1:bluemix:public:watsonx-orchestrate:au-syd:a/dce1d0c38c3a43969cfda31d2263b4d1:73f6c07a-a569-472f-b413-1c0be4ffd5b8::",
+        chatOptions: {
+          agentId: "a17aecb8-b37c-40a1-801d-16199ae46a19",
+        },
+      };
+
+      setTimeout(function () {
+        const script = document.createElement("script");
+        script.src = `${window.wxOConfiguration.hostURL}/wxochat/wxoLoader.js?embed=true`;
+        script.addEventListener("load", function () {
+          if (window.wxoLoader && window.wxoLoader.init) {
+            window.wxoLoader.init();
+            document.getElementById("ibmStatus").textContent = "IBM assistant: loaded";
+          } else {
+            document.getElementById("ibmStatus").textContent = "IBM assistant: unavailable — built-in guide is ready";
+          }
+        });
+        script.addEventListener("error", function () {
+          document.getElementById("ibmStatus").textContent = "IBM assistant: unavailable — built-in guide is ready";
+        });
+        document.head.appendChild(script);
+      }, 0);
+    </script>
+  </body>
+</html>
