@@ -117,7 +117,7 @@ Users can ask questions such as:
 > 🏦 **How can I stay safe while using digital banking?**
 
 <p align="center">
-  <img src="fifthpage.jpg" width="800">
+  <img src="forthpage.jpg" width="800">
 </p>
 
 ---
@@ -140,7 +140,7 @@ Users should verify important financial decisions with their bank or a qualified
 
 
 <p align="center">
-  <img src="forthpage.jpg" width="800">
+  <img src="fifthpage.jpg" width="800">
 </p>
 
 ---
@@ -216,7 +216,9 @@ in a web browser.
 
 ### **Shruti Halle**
 
-**BCA Graduate | AI & Technology Enthusiast**
+**BCA Graduate | Data Analyst | Data Science Learner**
+
+🔗 [LinkedIn](https://www.linkedin.com/in/shruti-halle)
 
 ---
 
